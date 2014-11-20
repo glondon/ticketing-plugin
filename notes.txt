@@ -1,0 +1,5 @@
+Notes
+
+removed this from table
+
+`time` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
