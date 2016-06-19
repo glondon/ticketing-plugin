@@ -1,4 +1,4 @@
 WordPressTicketingPlugin
 ========================
 
-WordPress plugin for an internal ticketing system for a small company in PHP
+WordPress plugin for a customizable internal ticketing system for a small company.
