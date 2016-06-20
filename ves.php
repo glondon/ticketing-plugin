@@ -2,6 +2,7 @@
 /*
 Plugin Name: VES
 Plugin URI: http://greglondon.info
+Project @ GitHub: https://github.com/glondon/ticketing-plugin (feel free to contribute)
 Description: Simple plugin for in-house ticket management that can be customized to fit your organization's current needs.
 Author: Greg London
 Version: 1.2
