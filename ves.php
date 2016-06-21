@@ -682,7 +682,7 @@ function ves_edittickets() {
 		        
 		        <tr valign="top">
 		        <th scope="row">Resolution Date</th>
-		        <td><input type="text" name="rdate" value="<?php if ($result->rdate != '') echo $result->rdate; ?>" /></td>
+		        <td><input type="text" name="rdate" id="datepicker" value="<?php if ($result->rdate != '') echo $result->rdate; ?>" /></td>
 		        </tr>
         
 		        <tr valign="top">
@@ -961,10 +961,10 @@ function ves_add_scripts() {
 	$myScripts = $plugin_url . 'js/scripts.js';
 
 	if (!wp_script_is('jquery-min'))
-		wp_enqueue_script('ves_jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js');
+		wp_enqueue_script('ves_jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js', '', '1.3.2');
 
 	if (!wp_script_is('jquery-ui'))
-		wp_enqueue_script('ves_jquery_ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js');
+		wp_enqueue_script('ves_jquery_ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js', '', '1.11.3');
 
 	wp_enqueue_script('ves_scripts', $myScripts);
 
