@@ -17,3 +17,11 @@ $(document).ready(function() {
 		});
 	});
 });
+
+// DatePicker
+$(document).ready(function () {
+    $('#datepicker').datepicker({
+        changeMonth: true,
+        changeYear: true
+    });
+});

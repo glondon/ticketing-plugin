@@ -274,6 +274,7 @@ function ves_add_tickets_page() {
 	global $wpdb, $user_ID, $user_email;
 
 	$table = 'wp_ves';
+	$today = date('m/d/Y');
 	
 	if (!empty($_POST)) {
 	
@@ -444,7 +445,8 @@ function ves_add_tickets_page() {
         
 		        <tr valign="top">
 		        <th scope="row">Resolution Date</th>
-		        <td><input type="text" name="rdate" value="<?php if (isset($_POST['rdate'])) echo $_POST['rdate']; ?>" /></td>
+		        <td><input type="text" name="rdate" id="datepicker" value="<?php if (isset($_POST['rdate'])) echo $_POST['rdate']; 
+		        	else echo $today; ?>" /></td>
 		        </tr>
 		        
 		        <tr valign="top">
@@ -935,11 +937,13 @@ function ves_deactivation()
 /*                                                     */
 /*******************************************************/
 
-function ves_add_my_stylesheet() { 
+function ves_add_stylesheets() { 
 
     $plugin_url = trailingslashit(get_option('siteurl')) . 'wp-content/plugins/' . basename(dirname(__FILE__)) .'/';
 	$myStyleFile = $plugin_url."css/ves.css";
+	wp_register_style('ves_jquery_css', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css');
 	wp_register_style('ves_css', $myStyleFile); 
+	wp_enqueue_style('ves_jquery_css');
 	wp_enqueue_style('ves_css');
 	return;
 }
@@ -949,6 +953,7 @@ function ves_add_scripts() {
 	$plugin_url = trailingslashit(get_option('siteurl')) . 'wp-content/plugins/' . basename(dirname(__FILE__)) .'/';
 	$myScripts = $plugin_url . 'js/scripts.js';
 	wp_enqueue_script('ves_jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js');
+	wp_enqueue_script('ves_jquery_ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js');
 	wp_enqueue_script('ves_scripts', $myScripts);
 	return;
 }
@@ -984,7 +989,7 @@ register_deactivation_hook(__FILE__, 'ves_deactivation');
 
 add_action( 'admin_menu', 'ves_plugin_menu' );
 add_action( 'admin_menu', 'ves_create_menu' );
-add_action( 'admin_print_styles', 'ves_add_my_stylesheet' );
+add_action( 'admin_print_styles', 'ves_add_stylesheets' );
 add_action( 'admin_enqueue_scripts', 'ves_add_scripts');
 
 
