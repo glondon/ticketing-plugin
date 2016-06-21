@@ -934,7 +934,14 @@ function ves_add_my_stylesheet() {
 	$myStyleFile = $plugin_url."css/ves.css";
 	wp_register_style('ves_css', $myStyleFile); 
 	wp_enqueue_style('ves_css');
-	
+	return;
+}
+
+function ves_add_scripts() {
+
+	$plugin_url = trailingslashit(get_option('siteurl')) . 'wp-content/plugins/' . basename(dirname(__FILE__)) .'/';
+	$myScripts = $plugin_url . 'js/scripts.js';
+	wp_enqueue_script('ves_scripts', $myScripts);
 	return;
 }
 
@@ -970,6 +977,7 @@ register_deactivation_hook(__FILE__, 'ves_deactivation');
 add_action( 'admin_menu', 'ves_plugin_menu' );
 add_action( 'admin_menu', 'ves_create_menu' );
 add_action( 'admin_print_styles', 'ves_add_my_stylesheet' );
+add_action( 'admin_enqueue_scripts', 'ves_add_scripts');
 
 
 // note this is only for v server mail use.... (needs to be updated)
