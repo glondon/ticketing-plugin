@@ -1,32 +1,10 @@
 
-.delete {
-padding:2px;
-
-}
-.indent {
-margin-left:30px;
-}
-fieldset {
-padding:30px;
-margin-top:20px;
-margin-left:30px;
--moz-border-radius:8px;-webkit-border-radius:8px;
--opera-border-radius:8px;
--khtml-border-radius:8px;
-border-radius:8px;
-background-color: #999999;
-}
-a {
-text-decoration:none;
-}
-.backing {
-background-color: #333333;
-padding:10px;
--moz-border-radius:8px;-webkit-border-radius:8px;
--opera-border-radius:8px;
--khtml-border-radius:8px;
-border-radius:8px;
-text-align:center;
-}
-.faq-answer {display:none;}
+.delete {padding:2px;}
+.indent {margin-left:30px;}
+fieldset {padding:30px;margin-top:20px;margin-left:30px;-moz-border-radius:8px;-webkit-border-radius:8px;-opera-border-radius:8px;
+	-khtml-border-radius:8px;border-radius:8px;background-color: #999999;}
+a {text-decoration:none;}
+.backing {background-color: #333333;padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;-opera-border-radius:8px;
+	-khtml-border-radius:8px;border-radius:8px;text-align:center;}
+.del-ticket {display:none;}
 td {padding:10px;}

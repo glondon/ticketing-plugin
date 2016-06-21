@@ -717,23 +717,9 @@ function ves_theid($id) {
 
 function ves_delete() {
 	
-	echo '<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-	<script>
-	$(document).ready(function() {									
-	$("a[name^=\'faq-\']").each(function() {
-		$(this).click(function() {
-			if( $("#" + this.name).is(\':hidden\') ) {
-				$("#" + this.name).toggle(\'slow\');
-			} else {
-				$("#" + this.name).toggle(\'slow\');
-			}			
-			return false;
-		});
-	});
-});
-</script>';
-	
-	echo '<div class="backing"><ul><li><h2><a href="#" name="faq-1" title="Click here to open and close." class="delete">Delete</a></h2>.<div class="faq-answer" id="faq-1"><br />';
+	echo '<div class="backing"><ul><li>
+		<h2><a href="#" name="del-1" title="Click here to open and close." class="delete">Delete</a></h2>
+		<div class="del-ticket" id="del-1"><br />';
 	echo '<h2>Are you sure you want to delete this ticket?</h2>';
     echo '<form method="post" action="?page=ves-edittickets">';
     	submit_button('Delete', 'delete', 'delete'); 
@@ -941,6 +927,7 @@ function ves_add_scripts() {
 
 	$plugin_url = trailingslashit(get_option('siteurl')) . 'wp-content/plugins/' . basename(dirname(__FILE__)) .'/';
 	$myScripts = $plugin_url . 'js/scripts.js';
+	wp_enqueue_script('ves_jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js');
 	wp_enqueue_script('ves_scripts', $myScripts);
 	return;
 }
