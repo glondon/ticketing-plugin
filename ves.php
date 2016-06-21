@@ -744,71 +744,92 @@ function ves_viewtickets() {
 	echo '<h2>Current Tickets</h2><fieldset>';
 		
 	$count = $wpdb->get_var( "SELECT COUNT(*) FROM wp_ves" );
-	echo '<h2 align="center">There is a total of <b>' . $count. '</b> ticket(s) in the database.</h2>';
+
+	if ($count == 0) {
+
+		echo '<h2 align="center">There is a total of <b>' . $count. '</b> tickets in the database.</h2>
+			<a href="?page=ves-add-tickets">Add tickets now!</a>';
+
+	} else {
+
+		echo '<h2 align="center">There is a total of <b>' . $count. '</b> ticket(s) in the database.</h2>';
 	
-	// begin pagination	 
-	$pagenum = isset( $_GET['pagenum'] ) ? absint( $_GET['pagenum'] ) : 1;
+		// begin pagination	 
+		$pagenum = isset( $_GET['pagenum'] ) ? absint( $_GET['pagenum'] ) : 1;
 
-	$limit = 25; // number of rows in page
-	$offset = ( $pagenum - 1 ) * $limit;
-	$total = $wpdb->get_var( "SELECT COUNT(`id`) FROM `wp_ves`" );
-	$num_of_pages = ceil( $total / $limit );
-	$result = $wpdb->get_results( "SELECT `id`,`ticket`,`fname`,`lname`, `agent`, `phone`, `date`, `time`, `trep`, `status` FROM `wp_ves` LIMIT $offset, $limit" );
-	$data_html = '';
+		$limit = 25; // number of rows in page
+		$offset = ( $pagenum - 1 ) * $limit;
+		$total = $wpdb->get_var( "SELECT COUNT(`id`) FROM `wp_ves`" );
+		$num_of_pages = ceil( $total / $limit );
+		$result = $wpdb->get_results( "SELECT `id`,`ticket`,`fname`,`lname`, `agent`, `phone`, `date`, `time`, `trep`, `status` FROM `wp_ves` LIMIT $offset, $limit" );
+		$data_html = '';
 
-	echo '<table border="1" width="100%"><tr><th>ID</th><th>Ticket</th><th>First Name</th><th>Last Name</th><th>Agent</th><th>Phone</th><th>Date</th><th>Time</th><th>Tech Rep</th><th>Status</th></tr>';
-	
-	foreach( $result as $results ) {
+		echo '<table border="1" width="100%">
+			<tr>
+				<th>ID</th>
+				<th>Ticket</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Agent</th>
+				<th>Phone</th>
+				<th>Date</th>
+				<th>Time</th>
+				<th>Tech Rep</th>
+				<th>Status</th>
+			</tr>';
 
-	    $id=$results->id;
-	    $ticket= $results->ticket;
-	    $fname= $results->fname;
-	    $lname= $results->lname;
-		$agent=$results->agent;
-		$phone=$results->phone;
-		$date=$results->date;
-		$time=$results->time;
-		$trep=$results->trep;
-		$status=$results->status;
+			foreach( $result as $results ) {
 
-		?>
+			    $id=$results->id;
+			    $ticket= $results->ticket;
+			    $fname= $results->fname;
+			    $lname= $results->lname;
+				$agent=$results->agent;
+				$phone=$results->phone;
+				$date=$results->date;
+				$time=$results->time;
+				$trep=$results->trep;
+				$status=$results->status;
 
-		<?php $html= "<tr>";?>
-		<?php $html .= "<td style=\"text-align:center;\"><a title=\"Click here to view or edit this ticket\" href=\"?page=ves-edit-tickets&tk=" . $id . "\">". $id."</a></td>";?>
-		<?php $html .= "<td>". $ticket."</td>";?>
-		<?php $html .= "<td>".$fname."</td>";?>
-		<?php $html .= "<td>".  $lname ."</td>";?>
-	    <?php $html .= "<td>".  $agent ."</td>";?>
-	    <?php $html .= "<td>".  $phone ."</td>";?>
-	    <?php $html .= "<td>".  $date ."</td>";?>
-	    <?php $html .= "<td>".  $time ."</td>";?>
-	    <?php $html .= "<td>".  $trep ."</td>";?>
-	    <?php $html .= "<td>".  $status ."</td>";?>
-		<?php $html .= "</tr>"?>
-		<?php
-		$data_html .=$html; 
+				?>
+
+				<?php $html= "<tr>";?>
+				<?php $html .= "<td style=\"text-align:center;\"><a title=\"Click here to view or edit this ticket\" href=\"?page=ves-edit-tickets&tk=" . $id . "\">". $id."</a></td>";?>
+				<?php $html .= "<td>". $ticket."</td>";?>
+				<?php $html .= "<td>".$fname."</td>";?>
+				<?php $html .= "<td>".  $lname ."</td>";?>
+			    <?php $html .= "<td>".  $agent ."</td>";?>
+			    <?php $html .= "<td>".  $phone ."</td>";?>
+			    <?php $html .= "<td>".  $date ."</td>";?>
+			    <?php $html .= "<td>".  $time ."</td>";?>
+			    <?php $html .= "<td>".  $trep ."</td>";?>
+			    <?php $html .= "<td>".  $status ."</td>";?>
+				<?php $html .= "</tr>"?>
+				<?php
+				$data_html .=$html; 
+			}
+
+			echo $data_html;
+
+			$page_links = paginate_links( array(
+			    'base' => add_query_arg( 'pagenum', '%#%' ),
+			    'format' => '',
+			    'prev_text' => __( '&laquo;', 'aag' ),
+			    'next_text' => __( '&raquo;', 'aag' ),
+			    'total' => $total,
+			    'current' => $pagenum
+			) );
+
+			if ( $page_links ) {
+			    echo '<div class="tablenav"><div class="tablenav-pages" style="margin: 1em 0">' . 
+				$page_links . '</div></div>';
+			}
+
+			// end pagination
+			
+			ves_search();
 	}
 
-	echo $data_html;
-
-	$page_links = paginate_links( array(
-	    'base' => add_query_arg( 'pagenum', '%#%' ),
-	    'format' => '',
-	    'prev_text' => __( '&laquo;', 'aag' ),
-	    'next_text' => __( '&raquo;', 'aag' ),
-	    'total' => $total,
-	    'current' => $pagenum
-	) );
-
-	if ( $page_links ) {
-	    echo '<div class="tablenav"><div class="tablenav-pages" style="margin: 1em 0">' . 
-		$page_links . '</div></div>';
-	}
-
-	// end pagination
-	
-	ves_search();
-	
 	echo '</fieldset></div>';
 
 }
